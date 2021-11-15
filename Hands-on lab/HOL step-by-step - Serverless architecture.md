@@ -120,6 +120,8 @@ Use Visual Studio and its integrated Azure Functions tooling to develop and debu
 
 ### Task 1: Connect to the Lab VM
 
+> **Note**: You are already connected to the VM, ignore this task and continue from Task 2.
+
 In this task, you create an RDP connection to your Lab virtual machine (VM).
 
 1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the Azure services list.
@@ -285,7 +287,7 @@ In this task, you will publish the Function App from the starter project in Visu
 
     ![In the Pick a publish target window, the Azure Functions Consumption Plan is selected in the left pane. The Select Existing radio button is selected in the right pane, and the Run from package file (recommended) checkbox is unchecked. The Create Profile button is also selected.](images/vs-publish-function11.png 'Publish window')
     
-5. In the App Service form, select your **Subscription**, select **Resource Group** under **View**, then expand your **hands-on-lab-SUFFIX** resource group and select the Function App whose name ends with **FunctionApp**. Finally, **uncheck the `Run from package file` option**.
+5. In the App Service form, select your **Subscription**, select **Resource Group** under **View**, then expand your **hands-on-lab-SUFFIX** resource group and select the Function App whose name ends with **Functions**. Finally, **uncheck the `Run from package file` option**.
 
 6. Whatever you named the Function App when you provisioned it is okay. Just make sure it is the same one to which you applied the Application Settings in Task 1 of this exercise.
 
@@ -425,33 +427,23 @@ In this task, you will add an Event Grid subscription to the SavePlateData funct
 
 In this task, you will add an Azure Cosmos DB output binding to the SavePlateData function, enabling it to save its data to the Processed collection.
 
-1. While still on the **SavePlateData** Integration blade, select **+ Add output** under `Outputs`, and in the `Create Output` blade that appears, select the **Azure Cosmos DB** binding type.
+1. While still on the **SavePlateData** Integration blade, select **+ Add output(1)** under `Outputs`, and in the `Create Output` blade that appears, select the **Azure Cosmos DB(2)** binding type. 
 
-    ![The Add Output link is highlighted with an arrow pointing to the highlighted binding type in the Create Output blade.](media/function-output-binding-type.png "Create Output")
+2. Click on **New** under `Cosmos DB account connection`, make sure **Azure Cosmos DB Account** selected under `New Azure Cosmos DB connection` then select the Cosmos DB account from dropdown then click on **OK**.
 
-2. Specify the following additional configuration options in the Create Output form:
+    ![The Add Output link is highlighted with an arrow pointing to the highlighted binding type in the Create Output blade.](https://raw.githubusercontent.com/ShivaUdari/MCW-Serverless-architecture/stage/Hands-on%20lab/media/E2T3S1n2.png "Create Output")
+
+> **Note**: If you see a notice for "Extensions not installed," select **Install** and wait for the extension installation to complete before proceeding.
+
+> **Note**: You should wait for the template dependency to install to complete if you were prompted earlier.
+
+3. Specify the following additional configuration options in the Create Output form:
 
     - **Document parameter name**: Leave set to **outputDocument**.
     - **Database name**: Enter **LicensePlates**.
     - **Collection name**: Enter **Processed**.
 
-3. Scroll down in the Create Output form, select **New** under the **Cosmos DB account connection** field.
-
- ![A message is displayed indicating the Cosmos DB Extensions are not installed. The Install link is selected.](media/cosmos-extension-install.png 'Cosmos DB Extensions not installed')
- 
-> **Note**: If you see a notice for "Extensions not installed," select **Install** and wait for the extension installation to complete before proceeding.
-
-4. Select your Cosmos DB account in the Cosmos DB account connection list and then select **OK**.
-
-    ![The new button is selected next to the Azure Cosmos DB account connection field.](media/cosmos-db-account-connection.png 'New button')
-
-5. Select **OK**.
-
-> **Note**: You should wait for the template dependency to install to complete if you were prompted earlier.
-
-    ![Under Azure Cosmos DB output the following field values display: Document parameter name, outputDocument; Collection name, Processed; Database name, LicensePlates; Azure Cosmos DB account connection, cosmosdb_DOCUMENTDB.](media/saveplatedata-cosmos-integration.png 'Azure Cosmos DB output section')
-
-6. Close the `SavePlateData` function.
+4. Select **OK** and close the `SavePlateData` function.
 
 ### Task 4: Create a function to save manual verification info to Azure Cosmos DB
 
@@ -515,20 +507,17 @@ In this task, you will add an Event Grid subscription to the QueuePlateForManual
 
 In this task, you will add an Azure Cosmos DB output binding to the QueuePlateForManualCheckup function, enabling it to save its data to the NeedsManualReview collection.
 
-1. While still on the **QueuePlateForManualCheckup** Integration blade, select **+ Add output** under `Outputs` within Integrations. In the `Create Output` blade that appears, select the **Azure Cosmos DB** binding type.
+1. While still on the **QueuePlateForManualCheckup** Integration blade, select **+ Add output** under `Outputs` within Integrations. In the `Create Output` blade that appears, select the **Azure Cosmos DB** binding type and select the **Azure Cosmos DB account connection** you created earlier. 
 
-    ![The Add Output link is highlighted with an arrow pointing to the highlighted binding type in the Create Output blade.](media/function-output-binding-type.png "Create Output")
+    ![The Add Output link is highlighted with an arrow pointing to the highlighted binding type in the Create Output blade.](media/E2T6S1.png "Create Output")
 
 2. Specify the following additional configuration options in the Create Output form:
 
     - **Document parameter name**: Leave set to **outputDocument**.
     - **Database name**: Enter **LicensePlates**.
     - **Collection name**: Enter **NeedsManualReview**.
-    - **Cosmos DB account connection**: Select the **Azure Cosmos DB account connection** you created earlier.
 
 3. Select **OK**.
-
-    ![In the Azure Cosmos DB output form, the following field values display: Document parameter name, outputDocument; Collection name, NeedsManualReview; Database name, LicensePlates; Azure Cosmos DB account connection, cosmosdb_DOCUMENTDB.](media/manual-checkup-cosmos-integration.png 'Azure Cosmos DB output form')
 
 4. Close the `QueuePlateForManualCheckup` function.
 
@@ -552,7 +541,7 @@ Application Insights can be integrated with Azure Function Apps to provide robus
 
     ![The Application Insights instance is highlighted in the resource group.](images/image25.png "Application Insights")
 
-2. In Application Insights, select **Live Metrics Stream** under Investigate in the left-hand navigation menu.
+2. In Application Insights, select **Live Metrics** under Investigate in the left-hand navigation menu.
 
     ![In the TollBoothMonitor blade, in the pane under Investigate, Live Metrics Stream is selected. ](images/image26.png 'TollBoothMonitor blade')
 
@@ -562,7 +551,7 @@ Application Insights can be integrated with Azure Function Apps to provide robus
 
     ![In Solution Explorer, the UploadImages project is expanded, and Properties is selected from the right-click context menu.](images/image27.png 'Solution Explorer')
 
-5. Select **Debug** in the left-hand menu, then paste the connection string for your Azure Data Lake Storage Gen2 account into the **Command line arguments** text field. This will ensure that the required connection string is added as an argument each time you run the application. Additionally, the combination of adding the value here and the `.gitignore` file included in the project directory will prevent the sensitive connection string from being added to your source code repository in a later step.
+5. Select **Debug** in the left-hand menu, then paste the `Connection string` of your `Storage account` named likely **datalakeDID** into the **Command line arguments** text field. This will ensure that the required connection string is added as an argument each time you run the application. Additionally, the combination of adding the value here and the `.gitignore` file included in the project directory will prevent the sensitive connection string from being added to your source code repository in a later step.
 
     ![The Debug menu item and the command line arguments text field are highlighted.](media/vs-command-line-arguments.png "Properties - Debug")
 
