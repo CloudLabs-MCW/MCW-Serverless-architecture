@@ -33,10 +33,9 @@ Microsoft and the trademarks listed at <https://www.microsoft.com/legal/intellec
   - [Requirements](#requirements)
   - [Exercise 1: Develop and publish the photo processing and data export functions](#exercise-1-develop-and-publish-the-photo-processing-and-data-export-functions)
     - [Help references](#help-references)
-    - [Task 1: Connect to the Lab VM](#task-1-connect-to-the-lab-vm)
-    - [Task 2: Open the starter solution in Visual Studio](#task-2-open-the-starter-solution-in-visual-studio)
-    - [Task 3: Finish the ProcessImage function](#task-3-finish-the-processimage-function)
-    - [Task 4: Publish the Function App from Visual Studio](#task-4-publish-the-function-app-from-visual-studio)
+    - [Task 1: Open the starter solution in Visual Studio](#task-1-open-the-starter-solution-in-visual-studio)
+    - [Task 2: Finish the ProcessImage function](#task-2-finish-the-processimage-function)
+    - [Task 3: Publish the Function App from Visual Studio](#task-3-publish-the-function-app-from-visual-studio)
   - [Exercise 2: Create functions in the portal](#exercise-2-create-functions-in-the-portal)
     - [Help references](#help-references-1)
     - [Task 1: Create a function to save license plate data to Azure Cosmos DB](#task-1-create-a-function-to-save-license-plate-data-to-azure-cosmos-db)
@@ -118,46 +117,7 @@ Use Visual Studio and its integrated Azure Functions tooling to develop and debu
 | **Description**                       | **Link**                                                              |
 | Code and test Azure Functions locally | <https://docs.microsoft.com/azure/azure-functions/functions-run-local> |
 
-### Task 1: Connect to the Lab VM
-
-In this task, you create an RDP connection to your Lab virtual machine (VM).
-
-1. In the [Azure portal](https://portal.azure.com), select **Resource groups** from the Azure services list.
-
-   ![Resource groups is highlighted in the Azure services list.](media/azure-services-resource-groups.png "Azure services")
-
-2. Select the **hands-on-lab-SUFFIX** resource group from the list.
-
-   ![The "hands-on-lab-SUFFIX" resource group is highlighted.](./images/image1.png "Resource groups list")
-
-3. In the list of resources within your resource group, select the **LabVM Virtual machine** resource.
-
-   ![The list of resources in the hands-on-lab-SUFFIX resource group are displayed, and LabVM is highlighted.](./media/resource-group-resources-labvm.png "LabVM in resource group list")
-
-4. On your LabVM blade, select **Connect** and **RDP** from the top menu.
-
-   ![The LabVM blade is displayed, with the Connect button highlighted in the top menu.](./media/connect-vm-rdp.png "Connect to Lab VM")
-
-5. On the Connect to virtual machine blade, select **Download RDP File**, then open the downloaded RDP file.
-
-   ![The Connect to virtual machine blade is displayed, and the Download RDP File button is highlighted.](./media/connect-to-virtual-machine.png "Connect to virtual machine")
-
-6. Select **Connect** on the Remote Desktop Connection dialog.
-
-   ![In the Remote Desktop Connection Dialog Box, the Connect button is highlighted.](./media/remote-desktop-connection.png "Remote Desktop Connection dialog")
-
-7. Enter the following credentials when prompted, and then select **OK**:
-
-   - **User name**: demouser
-   - **Password**: Password.1!!
-
-   ![The credentials specified above are entered into the Enter your credentials dialog.](media/rdc-credentials.png "Enter your credentials")
-
-8. Select **Yes** to connect if prompted that the remote computer's identity cannot be verified.
-
-   ![In the Remote Desktop Connection dialog box, a warning states that the remote computer's identity cannot be verified and asks if you want to continue anyway. At the bottom, the Yes button is highlighted.](./media/remote-desktop-connection-identity-verification-labvm.png "Remote Desktop Connection dialog")
-
-### Task 2: Open the starter solution in Visual Studio
+### Task 1: Open the starter solution in Visual Studio
 
 1. In the LabVM, open File Explorer and navigate to `C:\ServerlessMCW\MCW-Serverless-architecture-master\Hands-on lab\lab-files\src\TollBooth`.
 
@@ -202,7 +162,7 @@ In this task, you create an RDP connection to your Lab virtual machine (VM).
 
 9. Return to the open File Explorer window and navigate back to the **src** subfolder. From there, open the **license plates** subfolder. It contains sample license plate photos used for testing out the solution. One of the images is guaranteed to fail OCR processing, which is meant to show how the workload is designed to handle such failures. The UploadImages project uses the **copyfrom** folder as a basis for the 1,000 photo upload option for testing scalability.
 
-### Task 3: Finish the ProcessImage function
+### Task 2: Finish the ProcessImage function
 
 A few components within the starter project must be completed, which are marked as `TODO` in the code. The first set of `TODO` items we address are in the `ProcessImage` function. We will update the `FindLicensePlateText` class that calls the Computer Vision service and the `SendToEventGrid` class, which is responsible for sending processing results to the Event Grid topic you created earlier.
 
@@ -265,7 +225,7 @@ A few components within the starter project must be completed, which are marked 
 
 > **Note**: `TODOs` 5, 6, and 7 will be completed in later steps of the guide.
 
-### Task 4: Publish the Function App from Visual Studio
+### Task 3: Publish the Function App from Visual Studio
 
 In this task, you will publish the Function App from the starter project in Visual Studio to the existing Function App you provisioned in Azure.
 
@@ -562,9 +522,9 @@ Application Insights can be integrated with Azure Function Apps to provide robus
 
     ![In Solution Explorer, the UploadImages project is expanded, and Properties is selected from the right-click context menu.](images/image27.png 'Solution Explorer')
 
-5. Select **Debug** in the left-hand menu, then paste the connection string for your Azure Data Lake Storage Gen2 account into the **Command line arguments** text field. This will ensure that the required connection string is added as an argument each time you run the application. Additionally, the combination of adding the value here and the `.gitignore` file included in the project directory will prevent the sensitive connection string from being added to your source code repository in a later step.
+5. Select **Debug** in the left-hand menu, then paste the connection string for your Azure Data Lake Storage Gen2 account into the **Application arguments** text field. This will ensure that the required connection string is added as an argument each time you run the application. Additionally, the combination of adding the value here and the `.gitignore` file included in the project directory will prevent the sensitive connection string from being added to your source code repository in a later step.
 
-    ![The Debug menu item and the command line arguments text field are highlighted.](media/vs-command-line-arguments.png "Properties - Debug")
+    ![The Debug menu item and the command line arguments text field are highlighted.](images/server-arc-properties.png "Properties - Debug")
 
 6. Save your changes by selecting the Save icon on the Visual Studio toolbar.
 
@@ -596,9 +556,9 @@ Application Insights can be integrated with Azure Function Apps to provide robus
 
 In this task, you will change the Computer Vision API to the Free tier. This will limit the number of requests to the OCR service to 10 per minute. Once changed, run the UploadImages console app to upload 1,000 images again. The resiliency policy is programmed into the FindLicensePlateText.MakeOCRRequest method of the ProcessImage function will begin exponentially backing off requests to the Computer Vision API, allowing it to recover and lift the rate limit. This intentional delay will significantly increase the function's response time, causing the Consumption plan's dynamic scaling to kick in, allocating several more servers. You will watch all of this happen in real-time using the Live Metrics Stream view.
 
-1. Open your Computer Vision API service by opening the **hands-on-lab-SUFFIX** resource group and then selecting the **Cognitive Services** service name.
+1. Open your Computer Vision API service by opening the **hands-on-lab-SUFFIX** resource group and then selecting the **computer version** service name.
 
-    ![The computervision Cognitive Service resource is highlighted in the list of services in the resource group.](images/image29.png "Resource group")
+    ![The computervision Cognitive Service resource is highlighted in the list of services in the resource group.](images/server-arc-computerversion.png "Resource group")
 
 2. Select **Pricing tier** under Resource Management in the menu. Select the **F0 Free** pricing tier, then choose **Select**.
 
