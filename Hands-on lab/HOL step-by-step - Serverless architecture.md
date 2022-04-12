@@ -632,7 +632,7 @@ In this exercise, you will use the Azure Cosmos DB Data Explorer in the portal t
     SELECT VALUE COUNT(1) FROM c WHERE c.exported = false
     ```
 
-10. Execute the query (2) and observe the results (3). In our case, we have 906 processed documents that need to be exported.
+10. Execute the query (2) and observe the results (3). In our case, we have 1243 processed documents that need to be exported.
 
     ![In the Query window, the previously defined SQL query displays. Under Results, the number 906 is highlighted.](media/execute-query-cosomosdb.png 'Query 1 tab')
 
@@ -926,6 +926,10 @@ In this exercise, configure your Function App that contains the ProcessImage fun
 15. You should see a message stating that you successfully pushed your changes to the GitHub repository.
 
     ![The message is displayed.](media/vs-git-push-success-main.png "Successfully pushed")
+
+> **Note:** The message could be different from the above, stating that Successfully synchronized incoming and outgoing commits.
+
+    ![The message is displayed.](media/vs-git-push-success-main1.png "Successfully pushed")
 
 16. Go back to Deployment Center for your Function App in the portal. You should see an entry for the deployment kicked off by this last commit. Check the timestamp on the message to verify that you are looking at the latest one. **Make sure the deployment completes before continuing**.
 
