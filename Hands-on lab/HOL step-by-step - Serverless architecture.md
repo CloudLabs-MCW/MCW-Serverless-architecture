@@ -941,6 +941,15 @@ With the latest code changes in place, run your Logic App and verify that the fi
 
 1. In Visual Studio, right-click the **UploadImages** project in the Solution Explorer. Select **Debug**, then **Start New Instance** from the context menu.
 
+   > If you don't see the **UploadImages** project under the Solution Explorer, please follow the below mentioned steps:
+
+      - Click on **File (1)**
+      - Select **Recent Projects and Solutions (2)**
+      - Click on **Tollbooth.sln (3)** file
+
+      ![](../Hands-on%20lab/media/filetoolbooth.png)
+
+
 2. When the console window appears, enter `2` and press **ENTER**. This action uploads a handful of car photos to the images container of your Blob storage account.  This should get data to trigger the ExportLicensePlates function.
 
 ### Task 2: Run the Logic App
